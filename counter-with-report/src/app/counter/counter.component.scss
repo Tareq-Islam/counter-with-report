@@ -1,0 +1,41 @@
+.counter-wrapper {
+    border: 1px solid #2d2d2d;
+    display: flex;
+    justify-content: flex-start;
+    width: 500px;
+    margin: 22px auto;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 40px;
+    padding: 20px;
+  .user-input {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    padding: 10px;
+    .user-dist-checkbox {
+      .num-check {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 5px;
+      }
+    }
+  }
+  .action-btn {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 30px;
+  }
+  .result {
+    .count-result {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 10px;
+    }
+  }
+}
