@@ -7,7 +7,7 @@ import { TestUrl } from '../endpoint/test-url.model';
   providedIn: 'root',
 })
 export class TestApiService {
-  private _base_url = 'https://localhost:1240';
+  private _base_url = 'https://localhost:44330';
   constructor(
     private _http: HttpClient
   ) {}

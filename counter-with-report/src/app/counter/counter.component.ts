@@ -14,9 +14,7 @@ export class CounterComponent implements OnInit {
   }
 
   startCount() {
-    console.log('start');
-
-    // this._api.onStart().subscribe(res => console.log('start count'));
+    this._api.onStart().subscribe(res => console.log(res));
   }
 
   stopCount() {
