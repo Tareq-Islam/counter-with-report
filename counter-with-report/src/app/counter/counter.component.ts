@@ -41,7 +41,12 @@ export class CounterComponent implements OnInit {
   }
 
   updateCount() {
-    this._api.getCounts(this._header()).subscribe(
+    let headers = new Headers();
+    headers.set('Id', this.id);
+    headers.append('NumPercent', this.userInput.isNum.toString());
+    headers.append('StrPercent', this.userInput.isAlpa.toString());
+    headers.append('FltPercent', this.userInput.isFloat.toString());
+    this._api.getCounts(headers).subscribe(
       res => {
         this.counter.numeric = Number(res.intValue) || 0;
         this.counter.float = Number(res.floatVlaue) || 0;
@@ -66,13 +71,6 @@ export class CounterComponent implements OnInit {
     console.log('report');
   }
 
-  private _header() {
-    let headers = new Headers();
-    headers.set('Id', this.id);
-    headers.append('NumPercent', this.userInput.isNum.toString());
-    headers.append('StrPercent', this.userInput.isAlpa.toString());
-    headers.append('FltPercent', this.userInput.isFloat.toString());
-    return headers;
-  }
+  
 
 }
