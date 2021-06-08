@@ -12,7 +12,7 @@ export class CounterComponent implements OnInit {
   updateSubscription: Subscription;
   counter = {
     numeric: 0,
-    alpanumeric: 0,
+    alpanumeric: '0',
     float: 0
   };
 
@@ -43,6 +43,9 @@ export class CounterComponent implements OnInit {
   updateCount() {
     this._api.getCounts(this._header()).subscribe(
       res => {
+        this.counter.numeric = Number(res.intValue) || 0;
+        this.counter.float = Number(res.floatVlaue) || 0;
+        this.counter.alpanumeric = res.stringValue.toString() || '0';
         console.log(res);        
       }
     );
