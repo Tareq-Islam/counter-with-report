@@ -2,22 +2,22 @@
   <div class="user-input">
     <div class="user-dist-checkbox">
       <div class="num-check">
-        <input type="checkbox" />
+        <input type="checkbox" (click)="userInput.isNum = !userInput.isNum" [checked]="userInput.isNum"/>
         <label>Numeric</label>
       </div>
       <div class="num-check">
-        <input type="checkbox" />
+        <input type="checkbox" (click)="userInput.isAlpa = !userInput.isAlpa" [checked]="userInput.isAlpa"/>
         <label>Alapanumeric</label>
       </div>
       <div class="num-check">
-        <input type="checkbox" />
+        <input type="checkbox" (click)="userInput.isFloat = !userInput.isFloat" [checked]="userInput.isFloat"/>
         <label>Float</label>
       </div>
     </div>
     <div class="user-dist-filesize">
       <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">File Size</label>
-        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="enter file size" (keyup)="userInput.fileSize = $event.target.value" [value]="userInput.fileSize">
       </div>
     </div>
   </div>
