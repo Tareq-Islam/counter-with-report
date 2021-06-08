@@ -17,6 +17,7 @@ export class TestApiService {
   }
 
   public getCounts(header: any): Observable<any> {
+    console.log(header);
     return this._http.get(`${this._base_url}/${TestUrl.getCounter}`, { headers: header});
   }
 
