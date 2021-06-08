@@ -22,21 +22,21 @@
     </div>
   </div>
   <div class="action-btn">
-    <button class="btn btn-sm btn-dark" (click)="startCount()">Start</button>
-    <button class="btn btn-sm btn-info" (click)="stopCount()">Stop</button>
+    <button class="btn btn-sm btn-dark" [disabled]="isStart" (click)="startCount()">Start</button>
+    <button class="btn btn-sm btn-info" [disabled]="!isStart" (click)="stopCount()">Stop</button>
   </div>
   <div class="result">
     <div class="count-result">
       <label>Counter Result(Numeric)</label>
-      <input type="text">
+      <input type="text" [value]="counter.numeric" disabled>
     </div>
     <div class="count-result">
       <label>Counter Result(Alpa Numeric)</label>
-      <input type="text">
+      <input type="text" [value]="counter.alpanumeric" disabled>
     </div>
     <div class="count-result">
       <label>Counter Result(Float)</label>
-      <input type="text">
+      <input type="text" [value]="counter.float" disabled>
     </div>
   </div>
   <div class="report-btn">

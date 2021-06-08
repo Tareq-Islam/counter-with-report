@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription, timer } from 'rxjs';
 import { TestApiService } from '../core/api/test-api.service';
 
 @Component({
@@ -8,6 +9,7 @@ import { TestApiService } from '../core/api/test-api.service';
 })
 export class CounterComponent implements OnInit {
 
+  updateSubscription: Subscription;
   counter = {
     numeric: 0,
     alpanumeric: 0,
@@ -22,7 +24,7 @@ export class CounterComponent implements OnInit {
   }
 
   id: string;
-
+  isStart = false;
   constructor(private _api: TestApiService) {}
 
   ngOnInit(): void {
@@ -30,10 +32,11 @@ export class CounterComponent implements OnInit {
   }
 
   startCount() {
-    this._api.onStart().subscribe(res => {this.id = res.id; this.updateCount()});
+    this._api.onStart().subscribe(res => {this.id = res.id; this.isStart = true; this.onRecall()});
   }
 
   stopCount() {
+    this.isStart = false;
     console.log('stop');
   }
 
@@ -41,6 +44,17 @@ export class CounterComponent implements OnInit {
     this._api.getCounts(this._header()).subscribe(
       res => {
         console.log(res);        
+      }
+    );
+  }
+
+  onRecall() {
+    const interval = timer(0, 1000);
+    this.updateSubscription = interval.subscribe(
+      res => {
+        if (this.isStart) {
+          this.updateCount();
+        }
       }
     );
   }
