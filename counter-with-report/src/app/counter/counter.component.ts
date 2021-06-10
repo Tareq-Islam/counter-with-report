@@ -1,4 +1,6 @@
+import { HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription, timer } from 'rxjs';
 import { TestApiService } from '../core/api/test-api.service';
 
@@ -25,7 +27,7 @@ export class CounterComponent implements OnInit {
 
   id: string;
   isStart = false;
-  constructor(private _api: TestApiService) {}
+  constructor(private _api: TestApiService, private _router: Router) {}
 
   ngOnInit(): void {
    
@@ -37,16 +39,24 @@ export class CounterComponent implements OnInit {
 
   stopCount() {
     this.isStart = false;
+    if (this.updateSubscription) {
+      this.updateSubscription.unsubscribe();
+    }
     console.log('stop');
   }
 
   updateCount() {
-    let headers = new Headers();
-    headers.set('Id', this.id);
-    headers.append('NumPercent', this.userInput.isNum.toString());
-    headers.append('StrPercent', this.userInput.isAlpa.toString());
-    headers.append('FltPercent', this.userInput.isFloat.toString());
-    this._api.getCounts(headers).subscribe(
+    let header = new HttpHeaders({
+      'Content-Type':'application/json; charset=utf-8',
+      'Id': this.id,
+      'IsNumActive': `${this.userInput.isNum}`,
+      'IsStrActive': `${this.userInput.isAlpa}`,
+      'IsFltActive': `${this.userInput.isFloat}`,
+      'NumPercent': `${this.userInput.isNum}`,
+      'StrPercent': `${this.userInput.isAlpa}`,
+      'FltPercent': `${this.userInput.isFloat}`
+    });
+    this._api.getCounts(header).subscribe(
       res => {
         this.counter.numeric = Number(res.intValue) || 0;
         this.counter.float = Number(res.floatVlaue) || 0;
@@ -68,7 +78,7 @@ export class CounterComponent implements OnInit {
   }
 
   generateReports() {
-    console.log('report');
+    this._router.navigate(['/report', { id: this.id }]);
   }
 
   

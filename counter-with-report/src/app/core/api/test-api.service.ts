@@ -21,7 +21,7 @@ export class TestApiService {
     return this._http.get(`${this._base_url}/${TestUrl.getCounter}`, { headers: header});
   }
 
-  public getReport(): Observable<any> {
-    return this._http.get(`${this._base_url}/${TestUrl.report}`);
+  public getReport(header: any): Observable<any> {
+    return this._http.get(`${this._base_url}/${TestUrl.report}`, { headers: header});
   }
 }

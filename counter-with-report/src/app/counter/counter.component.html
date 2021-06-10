@@ -22,7 +22,7 @@
     </div>
   </div>
   <div class="action-btn">
-    <button class="btn btn-sm btn-dark" [disabled]="isStart" (click)="startCount()">Start</button>
+    <button class="btn btn-sm btn-dark" [disabled]="isStart" (click)="updateCount()">Start</button>
     <button class="btn btn-sm btn-info" [disabled]="!isStart" (click)="stopCount()">Stop</button>
   </div>
   <div class="result">
@@ -40,6 +40,6 @@
     </div>
   </div>
   <div class="report-btn">
-    <button routerLink="/report">Generate Report</button>
+    <button class="btn btn-sm btn-dark" (click)="generateReports()" [disabled]="this.id === undefined">Generate Report</button>
   </div>
 </div>
