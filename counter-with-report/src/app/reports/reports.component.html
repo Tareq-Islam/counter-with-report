@@ -1,3 +1,10 @@
-<p>
-  reports works!
-</p>
+<table class="table table-bordered table-striped table-dark">
+  <tr>
+    <th>Numeric</th>
+    <th>Alpa Numeric</th>
+    <th>Float</th>
+  </tr>
+  <tr *ngFor="let item of reports">
+    <td>{{item.initValue}}</td>
+  </tr>
+</table>

@@ -10,7 +10,7 @@ const routes: Routes = [
     component: AppComponent,
     children: [
       { path: '', component: CounterComponent },
-      { path: 'report:id', component: ReportsComponent },
+      { path: 'report/:id', component: ReportsComponent },
     ],
   },
 ];

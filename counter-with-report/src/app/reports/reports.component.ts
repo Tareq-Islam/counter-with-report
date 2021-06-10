@@ -17,14 +17,14 @@ export class ReportsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    const reportId = this._router.snapshot.paramMap.get('id');
+    const reportId = this._router.snapshot.params.id;
     this.getReport(reportId);
   }
 
   getReport(id) {
     let header = new HttpHeaders({
       'Content-Type':'application/json; charset=utf-8',
-      'Id': id
+      'Id': `${id}`
     });
     this._api.getReport(header).subscribe(
       res => {

@@ -45,22 +45,26 @@ export class CounterComponent implements OnInit {
     console.log('stop');
   }
 
-  updateCount(id) {
-    let header = new HttpHeaders({
-      'Content-Type':'application/json; charset=utf-8',
-    });
-    header.set('Id', id);
-    header.set('IsNumActive', `${this.userInput.isNum}`);
-    header.set('IsStrActive', `${this.userInput.isAlpa}`);
-    header.set('IsFltActive', `${this.userInput.isFloat}`);
+  updateCount(id) { 
+    let header = this._headers(id);
     this._api.getCounts(header).subscribe(
       res => {
         this.counter.numeric = res.intValue || '0';
         this.counter.float = res.floatVlaue || '0';
-        this.counter.alpanumeric = res.stringValue.toString() || '0';
+        this.counter.alpanumeric = res.stringValue || '0';
         console.log(res);        
       }
     );
+  }
+
+  private _headers(id) {
+    let headers = new HttpHeaders({
+      'Id':  `${id}`,
+      'IsNumActive': `${this.userInput.isNum}`,
+      'IsStrActive': `${this.userInput.isAlpa}`,
+      'IsFltActive': `${this.userInput.isFloat}`
+    });
+    return headers;
   }
 
   onRecall(id) {
@@ -75,7 +79,7 @@ export class CounterComponent implements OnInit {
   }
 
   generateReports() {
-    this._router.navigate(['/report', { id: this.id }]);
+    this._router.navigate(['/report', this.id]);
   }
 
   
