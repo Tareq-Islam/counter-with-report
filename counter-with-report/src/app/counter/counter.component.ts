@@ -34,7 +34,7 @@ export class CounterComponent implements OnInit {
   }
 
   startCount() {
-    this._api.onStart().subscribe(res => {this.id = res.id; this.isStart = true; this.onRecall()});
+    this._api.onStart().subscribe(res => {this.id = res.id; this.isStart = true; this.onRecall(res.id)});
   }
 
   stopCount() {
@@ -45,30 +45,30 @@ export class CounterComponent implements OnInit {
     console.log('stop');
   }
 
-  updateCount() {
+  updateCount(id) {
     let header = new HttpHeaders({
       'Content-Type':'application/json; charset=utf-8',
     });
-    header.append('Id', this.id);
-    header.append('IsNumActive', `${this.userInput.isNum}`);
-    header.append('IsStrActive', `${this.userInput.isAlpa}`);
-    header.append('IsFltActive', `${this.userInput.isFloat}`);
+    header.set('Id', id);
+    header.set('IsNumActive', `${this.userInput.isNum}`);
+    header.set('IsStrActive', `${this.userInput.isAlpa}`);
+    header.set('IsFltActive', `${this.userInput.isFloat}`);
     this._api.getCounts(header).subscribe(
       res => {
-        this.counter.numeric = Number(res.intValue) || 0;
-        this.counter.float = Number(res.floatVlaue) || 0;
+        this.counter.numeric = res.intValue || '0';
+        this.counter.float = res.floatVlaue || '0';
         this.counter.alpanumeric = res.stringValue.toString() || '0';
         console.log(res);        
       }
     );
   }
 
-  onRecall() {
+  onRecall(id) {
     const interval = timer(0, 1000);
     this.updateSubscription = interval.subscribe(
       res => {
         if (this.isStart) {
-          this.updateCount();
+          this.updateCount(id);
         }
       }
     );
