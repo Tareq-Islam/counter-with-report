@@ -48,14 +48,11 @@ export class CounterComponent implements OnInit {
   updateCount() {
     let header = new HttpHeaders({
       'Content-Type':'application/json; charset=utf-8',
-      'Id': this.id,
-      'IsNumActive': `${this.userInput.isNum}`,
-      'IsStrActive': `${this.userInput.isAlpa}`,
-      'IsFltActive': `${this.userInput.isFloat}`,
-      'NumPercent': `${this.userInput.isNum}`,
-      'StrPercent': `${this.userInput.isAlpa}`,
-      'FltPercent': `${this.userInput.isFloat}`
     });
+    header.append('Id', this.id);
+    header.append('IsNumActive', `${this.userInput.isNum}`);
+    header.append('IsStrActive', `${this.userInput.isAlpa}`);
+    header.append('IsFltActive', `${this.userInput.isFloat}`);
     this._api.getCounts(header).subscribe(
       res => {
         this.counter.numeric = Number(res.intValue) || 0;
